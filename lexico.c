@@ -440,18 +440,43 @@ void printToken(int token,int pc){
             break;
     }
 }
-int changeToken(int *token, char *string, int pc){
+void fprintToken(int token,int pc,FILE *fileOut){
+    switch(token){
+        case NUMERO_ENTERO:
+            //fprintf(fileOut,"PC: %d,NUMERO_ENTERO\n",pc);
+            fprintf(fileOut,"NUMERO_ENTERO\n");
+            break;
+        case STRING:
+            //fprintf(fileOut,"PC: %d,STRING\n",pc);
+            fprintf(fileOut,"STRING\n");
+            break;
+        case IDENTIFICADOR:
+            //fprintf(fileOut,"PC: %d,IDENTIFICADOR\n",pc);
+            fprintf(fileOut,"IDENTIFICADOR\n");
+            break;
+        case NUMERO_REAL:
+            //fprintf(fileOut,"PC: %d,NUMERO_REAL\n",pc);
+            fprintf(fileOut,"NUMERO_REAL\n");
+            break;
+        /*case NADA:
+            fprintf(fileOut,"PC: %d,NADA\n",pc);
+            break;*/
+        default:
+            break;
+    }
+}
+int changeToken(int *token, char *string, int pc,FILE *fileOut){
     int max = pc;
     int buffer;
     buffer = reconocerPalabraReservada(string,pc);
     if(max<buffer){
         char word[50];
         strsecpy(word,string,pc,buffer);
-        printf("PC: %d,%s\n",buffer,word);
+        fprintf(fileOut,"PC: %d,%s\n",buffer,word);
         return buffer;
     }
     if(isPunctuationSign(string[pc]) || isOperator(string[pc])){
-        printf("PC: %d,%c\n",pc,string[pc]);
+        fprintf(fileOut,"PC: %d,%c\n",pc,string[pc]);
         return pc+1;
     }
     buffer = reconocerNumeroEntero(string,pc);
@@ -477,7 +502,7 @@ int changeToken(int *token, char *string, int pc){
     if(max == pc){
         *token = NADA;
     }
-    printToken(*token,pc);
+    fprintToken(*token,pc,fileOut);
     return max;
 }
 
@@ -544,7 +569,7 @@ int main(int argc, char** argv){
     }
     
     
-    char stringFile[8300000];
+    /*char stringFile[8300000];
     int lenght = 0;
     
     saveFile(stringFile,&lenght,"entrada.txt");
@@ -559,11 +584,34 @@ int main(int argc, char** argv){
         if(token==NADA){
             pc++;
         }
-    }
+    }*/
 
     
     //PROCESADO LA INFORMACION
+    FILE *fileIn = fopen(argv[1],"r");
+    FILE *fileOut = fopen(argv[2],"w");
+    char buffer[1000];
+    int pc;
+    int token;
+    while(!feof(fileIn)){
+        memset(buffer,0,sizeof(buffer));
+        pc=0;
+        token = NADA;
+        fgets(buffer,1000,fileIn);
+        while(pc<strlen(buffer)){
+            //printf("pc: %d ",pc);
+            pc = changeToken(&token,buffer,pc,fileOut);
+            //printf("token:%d pc:%d\n",token,pc);
+            
     
+            if(token==NADA){
+                pc++;
+            }
+        }
+        //printf("%s",buffer);
+    }
+    fclose(fileIn);
+    fclose(fileOut);
     
     
     
