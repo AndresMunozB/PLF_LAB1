@@ -40,9 +40,9 @@ int isLetterMin(char c){
     if(c>=97 && c<=122){
         return 1;
     }
-    /*if(c==164){
+    if(c==-61 || c == -79){
         return 1;
-    }*/
+    }
     return 0;
 }
 
@@ -56,9 +56,9 @@ int isLetterMay(char c){
     if(c>=65 && c<=90){
         return 1;
     }
-   /* if (c==165){
+    if(c==-61 || c == -111  ){
         return 1;
-    }*/
+    }
     return 0;
 }
 
@@ -488,13 +488,17 @@ int reconocerIdentificador(char *string, int position){
 int reconocerNumeroReal(char *string, int position){
     int state = 1;
     int i=position;
+    int aux = position;
     while( i<=strlen(string) ){
         state = automataNumeroReal(state,string[i]);
         if (state == -1){
             return i;
         }
+        if (state == 5){
+            aux = i;
+        }
         if(state == -2){
-            return position;
+            return aux;
         }
         i++;
     }
@@ -715,6 +719,7 @@ int main(int argc, char** argv){
         pc=0;
         token = NADA;
         fgets(buffer,1000,fileIn);
+        //printf("%s\n",buffer);        
         while(pc<strlen(buffer)){
             pc = changeToken(&token,buffer,pc,fileOut);   
             if(token==NADA){
