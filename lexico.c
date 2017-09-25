@@ -40,7 +40,7 @@ int isLetterMin(char c){
     if(c>=97 && c<=122){
         return 1;
     }
-    if(c==-61 || c == -79){
+    if(c==-61 || c == -79){ //ñ
         return 1;
     }
     return 0;
@@ -56,7 +56,7 @@ int isLetterMay(char c){
     if(c>=65 && c<=90){
         return 1;
     }
-    if(c==-61 || c == -111  ){
+    if(c==-61 || c == -111 ){ // Ñ
         return 1;
     }
     return 0;
@@ -514,7 +514,7 @@ int reconocerNumeroReal(char *string, int position){
 int findFinal(char *string,int position){
     int i = position;
     while(i<strlen(string)){
-        if(!isCaracter(string[i]) || string[i] == ' ')
+        if(!isCaracter(string[i]) || string[i] == ' ' || isOperator(string[i]) || isPunctuationSign(string[i]) )
             return i;
         i++;
     }
