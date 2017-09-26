@@ -40,7 +40,7 @@ int isLetterMin(char c){
     if(c>=97 && c<=122){
         return 1;
     }
-    if(c==-61 || c == -79){ //ñ
+    if (c==-15){ //ñ
         return 1;
     }
     return 0;
@@ -56,7 +56,7 @@ int isLetterMay(char c){
     if(c>=65 && c<=90){
         return 1;
     }
-    if(c==-61 || c == -111 ){ // Ñ
+    if(c ==-47 ){ // Ñ
         return 1;
     }
     return 0;
@@ -513,8 +513,8 @@ int reconocerNumeroReal(char *string, int position){
 */
 int findFinal(char *string,int position){
     int i = position;
-    while(i<strlen(string)){
-        if(!isCaracter(string[i]) || string[i] == ' ' || isOperator(string[i]) || isPunctuationSign(string[i]) )
+    while(i<=strlen(string)){
+        if(!isCaracter(string[i]) || string[i] == ' ' || isOperator(string[i]) || isPunctuationSign(string[i]))
             return i;
         i++;
     }
@@ -686,7 +686,7 @@ int validarEntradas(int argc, char** argv){
     }
     //Caso 4
     if (!existsFile(argv[1])){
-        printf("Error: El archivo de entrada no existe\n");
+        printf("Error: El archivo de entrada no existe.\n");
         return 0;
     }
     //Caso 5
@@ -697,6 +697,13 @@ int validarEntradas(int argc, char** argv){
     return 1;
 }
 
+void printCaraters(char *string){
+    int i=0;
+    while(i<strlen(string)){
+        printf("%c-%d| ,",string[i],string[i]);
+        i++;    
+    }
+}
 
 int main(int argc, char** argv){
     
@@ -704,10 +711,7 @@ int main(int argc, char** argv){
     if(!validarEntradas(argc,argv)){
         return 0;
     }
-    
-    
 
-    
     //PROCESADO LA INFORMACION
     FILE *fileIn = fopen(argv[1],"r");
     FILE *fileOut = fopen(argv[2],"w");
@@ -719,7 +723,8 @@ int main(int argc, char** argv){
         pc=0;
         token = NADA;
         fgets(buffer,1000,fileIn);
-        //printf("%s\n",buffer);        
+        //printf("%s\n",buffer);    
+        //printCaraters(buffer);    
         while(pc<strlen(buffer)){
             pc = changeToken(&token,buffer,pc,fileOut);   
             if(token==NADA){
@@ -730,10 +735,5 @@ int main(int argc, char** argv){
     fclose(fileIn);
     fclose(fileOut);
     
-    
-    
-    
-    //FINAL
-    //printf("\n");
     return 1;
 }
