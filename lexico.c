@@ -668,30 +668,30 @@ int validarEntradas(int argc, char** argv){
     //Caso 1
 
     if (argc == 1){
-        printf("Error: Faltan parámetros en la línea de comandos.\n");
-        printf("Uso: lexico.exe archivo_entrada archivo_salida\n\n");
+        printf("Error: Faltan par%cmetros en la l%cnea de comandos.\n",160,161);
+        printf("Uso: lexico.exe archivo_entrada archivo_salida\n");
         return 0;
     }
     //Caso 2
     if (argc == 2){
-        printf("Error: Falta parámetro en la línea de comandos.\n");
-        printf("Uso: lexico.exe archivo_entrada archivo_salida\n\n");
+        printf("Error: Falta par%cmetro en la l%cnea de comandos.\n",160,161);
+        printf("Uso: lexico.exe archivo_entrada archivo_salida\n");
         return 0;
     }
     //Caso 3 
     if( argc > 3 ){
-        printf("Error: Demasiados parámetros en la línea de comandos.\n");
-        printf("Uso: lexico.exe archivo_entrada archivo_salida\n\n");
+        printf("Error: Demasiados par%cmetros en la l%cnea de comandos.\n",160,161);
+        printf("Uso: lexico.exe archivo_entrada archivo_salida\n");
         return 0;
     }
     //Caso 4
     if (!existsFile(argv[1])){
-        printf("Error: El archivo de entrada no existe\n\n");
+        printf("Error: El archivo de entrada no existe\n");
         return 0;
     }
     //Caso 5
     if (existsFile(argv[2])){
-        printf("Error: El archivo de salida ya existe.\n\n");
+        printf("Error: El archivo de salida ya existe.\n");
         return 0;
     }
     return 1;
@@ -734,6 +734,6 @@ int main(int argc, char** argv){
     
     
     //FINAL
-    printf("\n");
+    //printf("\n");
     return 1;
 }
