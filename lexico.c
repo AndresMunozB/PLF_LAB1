@@ -1,15 +1,23 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+/*
+     Autor: Andrés Muñoz Bravo.
+     Analizador Léxico del lenguaje de programación HYE.
+     Curso: Procesamiento de Lenguajes Formales (PLF).
+     Profesora: Consuelo Ramírez 
+     Ayudante: Javiera Torres
+*/
+
 enum{NUMERO_ENTERO,STRING,IDENTIFICADOR,NUMERO_REAL,PALABRA_RESERVADA,OPERADOR_PUNTUACION,NADA=10};
-//NO SE RECONOCE LA Ñ  NI LA ñ;
 
 /*
- * Funcion isSimbol
- * funcion que verifica si caracter es un simbolo
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que sea un simbolo el caracter y 0 en caso contrario.
+ * función isSimbol
+ * función que verifica si carácter es un símbolo
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que sea un símbolo el carácter y 0 en caso contrario.
 */
 int isSimbol(char c){
     if(c>=32 && c<=47 && c!='\''){
@@ -31,10 +39,10 @@ int isSimbol(char c){
 }
 
 /*
- * Funcion isLetterMin
- * funcion que verifica si un caracter es una letra minuscula
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que sea una letra minuscula el caracter y 0 en caso contrario.
+ * función isLetterMin
+ * función que verifica si un carácter es una letra minúscula
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que sea una letra minúscula el carácter y 0 en caso contrario.
 */
 int isLetterMin(char c){
     if(c>=97 && c<=122){
@@ -47,10 +55,10 @@ int isLetterMin(char c){
 }
 
 /*
- * Funcion isLetterMay
- * funcion que verifica si un caracter es una letra mayuscula
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que sea una letra mayuscula el caracter y 0 en caso contrario.
+ * función isLetterMay
+ * función que verifica si un carácter es una letra mayúscula
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que sea una letra mayúscula el carácter y 0 en caso contrario.
 */
 int isLetterMay(char c){
     if(c>=65 && c<=90){
@@ -63,10 +71,10 @@ int isLetterMay(char c){
 }
 
 /*
- * Funcion isLetter
- * funcion que verifica si un caracter es una letra (mayuscula o minuscula)
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que sea una letra el caracter y 0 en caso contrario.
+ * función isLetter
+ * función que verifica si un carácter es una letra (mayúscula o minúscula)
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que sea una letra el carácter y 0 en caso contrario.
 */
 int isLetter(char c){
     if(isLetterMay(c)){
@@ -79,10 +87,10 @@ int isLetter(char c){
 }
 
 /*
- * Funcion isDigit
- * funcion que verifica si un caracter es un digito
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que sea un digito el caracter y 0 en caso contrario.
+ * función isDigit
+ * función que verifica si un carácter es un dígito
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que sea un dígito el carácter y 0 en caso contrario.
 */
 int isDigit(char c){
     if(c>=48 && c<=57){
@@ -91,10 +99,10 @@ int isDigit(char c){
     return 0;
 }
 /*
- * Funcion isCaracter
- * funcion que verifica si un caracter es un caracter (simbolo o letra o digito)
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que sea un caracter el caracter y 0 en caso contrario.
+ * función isCaracter
+ * función que verifica si un carácter es un carácter (símbolo o letra o dígito)
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que sea un carácter el carácter y 0 en caso contrario.
 */
 int isCaracter(char c){
     if(isLetter(c)){
@@ -110,10 +118,10 @@ int isCaracter(char c){
 }
 
 /*
- * Funcion isOperator
- * funcion que verifica si un caracter es operador (+,-,*,/)
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que sea un operador el caracter y 0 en caso contrario.
+ * función isOperator
+ * función que verifica si un carácter es operador (+,-,*,/)
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que sea un operador el carácter y 0 en caso contrario.
 */
 int isOperator(char c){
     switch(c){
@@ -137,10 +145,10 @@ int isOperator(char c){
 }
 
 /*
- * Funcion isPunctuationSign
- * funcion que verifica si un caracter es signo de puntuacion (.,:,,,;,(,))
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que sea un signo de puntuacion el caracter y 0 en caso contrario.
+ * función isPunctuationSign
+ * función que verifica si un carácter es signo de puntuación (.,:,,,;,(,))
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que sea un signo de puntuación el carácter y 0 en caso contrario.
 */
 int isPunctuationSign(char c){
     switch(c){
@@ -162,10 +170,10 @@ int isPunctuationSign(char c){
 }
 
 /*
- * Funcion isReservedWord
- * funcion que verifica si una cadena caracteres es  una palabra reservada
- * @param char c, caracter a verificar
- * @return entero 1 en caso de que la cadena de carateres sea una palabra reservada y 0 en caso contrario.
+ * función isReservedWord
+ * función que verifica si una cadena caracteres es  una palabra reservada
+ * @param char c, carácter a verificar
+ * @return entero 1 en caso de que la cadena de caracteres sea una palabra reservada y 0 en caso contrario.
 */
 int isReservedWord(char *word){
     if(!strcmp(word,"ABS")){
@@ -273,10 +281,10 @@ int isReservedWord(char *word){
 }
 
 /*
- * Funcion automataNumeroEntero
- * funcion que realiza la funcion de un automata, para un numero entero.
- * @param int state,estando en el cual se encuentra actualmente. char c, caracter con el cual se hace una transicion 
- * @return entero, entrega el siguiente estado. Si es un estado final entrega -1, si entra un caracter invalido entrega -2.
+ * función automataNumeroEntero
+ * función que realiza la función de un autómata, para un número entero.
+ * @param int state,estado en el cual se encuentra actualmente. char c, carácter con el cual se hace una transición. 
+ * @return entero, entrega el siguiente estado. Si es un estado final entrega -1, si entra un carácter inválido entrega -2.
 */
 int automataNumeroEntero(int state,char c){
     switch(state){
@@ -296,10 +304,10 @@ int automataNumeroEntero(int state,char c){
 }
 
 /*
- * Funcion automataString
- * funcion que realiza la funcion de un automata, para un string.
- * @param int state,estando en el cual se encuentra actualmente. char c, caracter con el cual se hace una transicion 
- * @return entero, entrega el siguiente estado. Si es un estado final entrega -1, si entra un caracter invalido entrega -2.
+ * función automataString
+ * función que realiza la función de un autómata, para un string.
+ * @param int state,estado en el cual se encuentra actualmente. char c, carácter con el cual se hace una transición. 
+ * @return entero, entrega el siguiente estado. Si es un estado final entrega -1, si entra un carácter inválido entrega -2.
 */
 int automataString(int state, char c){
     switch(state){
@@ -328,10 +336,10 @@ int automataString(int state, char c){
 }
 
 /*
- * Funcion automataIdentificador
- * funcion que realiza la funcion de un automata, para un identificador.
- * @param int state,estando en el cual se encuentra actualmente. char c, caracter con el cual se hace una transicion 
- * @return entero, entrega el siguiente estado. Si es un estado final entrega -1, si entra un caracter invalido entrega -2.
+ * función automataIdentificador
+ * función que realiza la función de un autómata, para un identificador.
+ * @param int state,estado en el cual se encuentra actualmente. char c, carácter con el cual se hace una transición. 
+ * @return entero, entrega el siguiente estado. Si es un estado final entrega -1, si entra un carácter inválido entrega -2.
 */
 int automataIdentificador(int state,char c){
     switch(state){
@@ -350,10 +358,10 @@ int automataIdentificador(int state,char c){
 }
 
 /*
- * Funcion automataNumeroReal
- * funcion que realiza la funcion de un automata, para un numero real.
- * @param int state,estando en el cual se encuentra actualmente. char c, caracter con el cual se hace una transicion 
- * @return entero, entrega el siguiente estado. Si es un estado final entrega -1, si entra un caracter invalido entrega -2.
+ * función automataNumeroReal
+ * función que realiza la función de un autómata, para un número real.
+ * @param int state,estado en el cual se encuentra actualmente. char c, carácter con el cual se hace una transición. 
+ * @return entero, entrega el siguiente estado. Si es un estado final entrega -1, si entra un carácter inválido entrega -2.
 */
 int automataNumeroReal(int state,char c){
     switch(state){
@@ -372,12 +380,12 @@ int automataNumeroReal(int state,char c){
             else
                 return -2;
 
-        case 3: //tengo digito(digito)*.
+        case 3: //tengo dígito(dígito)*.
             if(isDigit(c))
                 return 4;
             else
                 return -2;
-        case 4: // ESTADO FINAL : digito(digito)*.digito
+        case 4: // ESTADO FINAL : dígito(dígito)*.dígito
             if (c == 'E')
                 return 5;
             else
@@ -413,10 +421,10 @@ int automataNumeroReal(int state,char c){
 }
 
 /*
- * Funcion reconocerNumeroEntero
- * funcion que reconoce una expresion regular (numero entero)
- * @param char *string, cadena de caracteres en la cual se reconocera la expresion regular. int position, posicion desde la cual se comenzara a reconocer la expresion regular.
- * @return entero, posicion que corresponde a la siguiente despues de reconocer la expresion regular, entrega 0 si no reconoce ninguna expresion.
+ * función reconocerNumeroEntero
+ * función que reconoce una expresión regular (número entero)
+ * @param char *string, cadena de caracteres en la cual se reconocera la expresión regular. int position, posición desde la cual se comenzara a reconocer la expresión regular.
+ * @return entero, posición que corresponde a la siguiente después de reconocer la expresión regular, entrega 0 si no reconoce ninguna expresión.
 */
 int reconocerNumeroEntero(char *string,int position){
     int state = 1;
@@ -436,10 +444,10 @@ int reconocerNumeroEntero(char *string,int position){
 }
 
 /*
- * Funcion reconocerString
- * funcion que reconoce una expresion regular (string)
- * @param char *string, cadena de caracteres en la cual se reconocera la expresion regular. int position, posicion desde la cual se comenzara a reconocer la expresion regular.
- * @return entero, posicion que corresponde a la siguiente despues de reconocer la expresion regular, entrega 0 si no reconoce ninguna expresion.
+ * función reconocerString
+ * función que reconoce una expresión regular (string)
+ * @param char *string, cadena de caracteres en la cual se reconocera la expresión regular. int position, posición desde la cual se comenzara a reconocer la expresión regular.
+ * @return entero, posición que corresponde a la siguiente después de reconocer la expresión regular, entrega 0 si no reconoce ninguna expresión.
 */
 int reconocerString(char *string,int position){
     int state = 1;
@@ -458,10 +466,10 @@ int reconocerString(char *string,int position){
 }
 
 /*
- * Funcion reconocerIdentificador
- * funcion que reconoce una expresion regular (identificador)
- * @param char *string, cadena de caracteres en la cual se reconocera la expresion regular. int position, posicion desde la cual se comenzara a reconocer la expresion regular.
- * @return entero, posicion que corresponde a la siguiente despues de reconocer la expresion regular, entrega 0 si no reconoce ninguna expresion.
+ * función reconocerIdentificador
+ * función que reconoce una expresión regular (identificador)
+ * @param char *string, cadena de caracteres en la cual se reconocera la expresión regular. int position, posición desde la cual se comenzara a reconocer la expresión regular.
+ * @return entero, posición que corresponde a la siguiente después de reconocer la expresión regular, entrega 0 si no reconoce ninguna expresión.
 */
 int reconocerIdentificador(char *string, int position){
     int state = 1;
@@ -480,10 +488,10 @@ int reconocerIdentificador(char *string, int position){
 }
 
 /*
- * Funcion reconocerNumeroReal
- * funcion que reconoce una expresion regular (numero real)
- * @param char *string, cadena de caracteres en la cual se reconocera la expresion regular. int position, posicion desde la cual se comenzara a reconocer la expresion regular.
- * @return entero, posicion que corresponde a la siguiente despues de reconocer la expresion regular, entrega 0 si no reconoce ninguna expresion.
+ * función reconocerNumeroReal
+ * función que reconoce una expresión regular (número real)
+ * @param char *string, cadena de caracteres en la cual se reconocera la expresión regular. int position, posición desde la cual se comenzara a reconocer la expresión regular.
+ * @return entero, posición que corresponde a la siguiente después de reconocer la expresión regular, entrega 0 si no reconoce ninguna expresión.
 */
 int reconocerNumeroReal(char *string, int position){
     int state = 1;
@@ -506,10 +514,10 @@ int reconocerNumeroReal(char *string, int position){
 }
 
 /*
- * Funcion findFinal
- * funcion que busca el final de una posible palabra reservada.
- * @param char *string, string en el que se busca el final. int position, posicion desde la cual se comeinza a buscar el final
- * @return entero, posicion del final de una posible palabra reservada.
+ * función findFinal
+ * función que busca el final de una posible palabra reservada.
+ * @param char *string, string en el que se busca el final. int position, posición desde la cual se comeinza a buscar el final
+ * @return entero, posición del final de una posible palabra reservada.
 */
 int findFinal(char *string,int position){
     int i = position;
@@ -523,9 +531,9 @@ int findFinal(char *string,int position){
 }
 
 /*
- * Funcion strsecpy
- * funcion que copia un string desde una posicion incial hasta una final.
- * @param char *dest, string destino. char *src, string origen. int start, posicion inicial.int end, posicion final.
+ * función strsecpy
+ * función que copia un string desde una posición incial hasta una final.
+ * @param char *dest, string destino. char *src, string origen. int start, posición inicial.int end, posición final.
 */
 void strsecpy(char *dest,char *src,int start,int end){
     int i=0;
@@ -538,10 +546,10 @@ void strsecpy(char *dest,char *src,int start,int end){
 }
 
 /*
- * Funcion reconocerPalabraReservada
- * funcion que reconoce si un string es una palabra reservada
- * @param char *string, cadena de caracteres en la cual se reconce la palabra reservada. int position, posicion desde la cual se comenzara a reconocer la expresion regular.
- * @return entero, posicion que corresponde a la siguiente despues de reconocer la palabra reservada, entrega 0 si no reconoce ninguna palabra reservada.
+ * función reconocerPalabraReservada
+ * función que reconoce si un string es una palabra reservada
+ * @param char *string, cadena de caracteres en la cual se reconce la palabra reservada. int position, posición desde la cual se comenzara a reconocer la expresión regular.
+ * @return entero, posición que corresponde a la siguiente después de reconocer la palabra reservada, entrega 0 si no reconoce ninguna palabra reservada.
 */
 int reconocerPalabraReservada(char *string, int position){
     int final = findFinal(string,position);
@@ -558,8 +566,8 @@ int reconocerPalabraReservada(char *string, int position){
 }
 
 /*
- * Funcion fprintToken
- * funcion que escribe en un archivo el tipo de token entregado por parametro
+ * función fprintToken
+ * función que escribe en un archivo el tipo de token entregado por parámetro
  * @param int token,FILE *fileOut
 */
 void fprintToken(int token,FILE *fileOut){
@@ -589,10 +597,10 @@ void fprintToken(int token,FILE *fileOut){
 }
 
 /*
- * Funcion changeToken
- * funcion encargada de reconocer el token mas largo
- * @param int *token,parametro por referencia para ir modificando el token cada vez que se reconoce una expresion regular. char *string, cadena de caracteres que se esta analizando. int pc, posicion desde donde se comienza a analizar las expresiones regulares.FILE *fileOut, archivo de salida en el cual se escribe el tipo de expresion regular reconocida.
- * @return entero, posicion que corresponde a la siguiente despues de reconocer alguna expresion, entrega 0 si no reconoce ninguna expresion.
+ * función changeToken
+ * función encargada de reconocer el token mas largo
+ * @param int *token,parámetro por referencia para ir modificando el token cada vez que se reconoce una expresión regular. char *string, cadena de caracteres que se esta analizando. int pc, posición desde donde se comienza a analizar las expresiones regulares.FILE *fileOut, archivo de salida en el cual se escribe el tipo de expresion regular reconocida.
+ * @return entero, posición que corresponde a la siguiente después de reconocer alguna expresión, entrega 0 si no reconoce ninguna expresión.
 */
 int changeToken(int *token, char *string, int pc,FILE *fileOut){
     int max = pc;
@@ -640,8 +648,8 @@ int changeToken(int *token, char *string, int pc,FILE *fileOut){
 }
 
 /*
- * Funcion existFile
- * funcion que verifica si un archivo de texto plano existe
+ * función existFile
+ * función que verifica si un archivo de texto plano existe
  * @param char* fileName, nombre del archivo
  * @return entero 1 en caso de que si exista y 0 en caso contrario
 */
@@ -659,10 +667,10 @@ int existsFile(char* fileName)
 }
 
 /*
- * Funcion validarEntradas
- * funcion que verifica si los parametros de entrada del programa son validos
- * @param int argc,numero de argumentos. char** argv, arreglo de cadena de caracteres que contiene los parametros de entrada.
- * @return entero 1 en caso de que si los parametros sean validos y 0 en caso contrario
+ * función validarEntradas
+ * función que verifica si los parámetros de entrada del programa son válidos
+ * @param int argc,número de argumentos. char** argv, arreglo de cadena de caracteres que contiene los parámetros de entrada.
+ * @return entero 1 en caso de que si los parámetros sean válidos y 0 en caso contrario
 */
 int validarEntradas(int argc, char** argv){
     //Caso 1
@@ -697,24 +705,9 @@ int validarEntradas(int argc, char** argv){
     return 1;
 }
 
-void printCaraters(char *string){
-    int i=0;
-    while(i<strlen(string)){
-        printf("%c-%d| ,",string[i],string[i]);
-        i++;    
-    }
-}
-
-int main(int argc, char** argv){
-    
-    //VALIDANDO ENTRADAS
-    if(!validarEntradas(argc,argv)){
-        return 0;
-    }
-
-    //PROCESADO LA INFORMACION
-    FILE *fileIn = fopen(argv[1],"r");
-    FILE *fileOut = fopen(argv[2],"w");
+void lexicalAnalyzer(char* fileNameIn, char* fileNameOut){
+    FILE *fileIn = fopen(fileNameIn,"r");
+    FILE *fileOut = fopen(fileNameOut,"w");
     char buffer[1000];
     int pc;
     int token;
@@ -723,8 +716,7 @@ int main(int argc, char** argv){
         pc=0;
         token = NADA;
         fgets(buffer,1000,fileIn);
-        //printf("%s\n",buffer);    
-        //printCaraters(buffer);    
+        //printf("%s\n",buffer);       
         while(pc<strlen(buffer)){
             pc = changeToken(&token,buffer,pc,fileOut);   
             if(token==NADA){
@@ -734,6 +726,17 @@ int main(int argc, char** argv){
     }
     fclose(fileIn);
     fclose(fileOut);
+}
+
+int main(int argc, char** argv){
+    
+    //VALIDANDO ENTRADAS
+    if(!validarEntradas(argc,argv)){
+        return 0;
+    }
+
+    //PROCESADO LA INFORMACIÓN
+    lexicalAnalyzer(argv[1],argv[2]);
     
     return 1;
 }
