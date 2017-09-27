@@ -705,6 +705,11 @@ int validarEntradas(int argc, char** argv){
     return 1;
 }
 
+/*
+ * función lexicalAnalyzer
+ * función genera un archivo con los componentes lexicos reconocidos en un archivo de texto de entrada.
+ * @param char* fileNameIn, nombre del archivo de texto de entrada. char* fileNameOut, nombre del archivo de texto de salida.
+*/
 void lexicalAnalyzer(char* fileNameIn, char* fileNameOut){
     FILE *fileIn = fopen(fileNameIn,"r");
     FILE *fileOut = fopen(fileNameOut,"w");
